@@ -1,0 +1,263 @@
+/* Generales */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden; /* Evita scroll horizontal en diseños responsive */
+}
+
+/* Navbar */
+.navbar {
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Añadida la clase para cuando la navbar hace scroll */
+.navbar-scrolled {
+    background-color: rgba(33, 37, 41, 0.95) !important; /* Un poco más opaca o un color diferente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007bff !important; /* Color del logo */
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #ffffff !important;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh; /* Altura completa de la ventana */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero-bg.jpg') no-repeat center center/cover;
+    color: white;
+    position: relative;
+    padding-top: 56px; /* Para compensar la navbar fija */
+    display: flex; /* Asegura centrado vertical del contenido */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p.lead {
+    font-size: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+/* Efectos de animación (Bootstrap) - Asegúrate de tener Animate.css si quieres usar esto */
+/* Puedes incluir Animate.css en tu <head> si deseas animaciones más avanzadas */
+/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> */
+
+
+/* Sections genericas */
+section {
+    padding: 80px 0;
+}
+
+section:nth-child(even) {
+    background-color: #f8f9fa; /* Fondo claro para secciones alternas */
+}
+
+h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
+    color: #343a40;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+/* Services Section */
+.service-card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Asegura que el contenido esté centrado verticalmente */
+    align-items: center; /* Centra horizontalmente los elementos hijos */
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura si el contenido lo permite */
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-card i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #007bff; /* Color principal por defecto */
+}
+
+/* Colores específicos para iconos de servicio */
+.service-card .text-primary { color: #007bff !important; }
+.service-card .text-success { color: #28a745 !important; }
+.service-card .text-info { color: #17a2b8 !important; }
+.service-card .text-warning { color: #ffc107 !important; }
+.service-card .text-danger { color: #dc3545 !important; }
+.service-card .text-secondary { color: #6c757d !important; }
+
+/* Portfolio Section */
+.portfolio-item {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 200px; /* Altura fija para las imágenes del portafolio */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    border-bottom: 1px solid #eee;
+}
+
+.portfolio-item .card-body {
+    padding: 20px;
+}
+
+/* Contact Section */
+#contact {
+    background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.8)), url('../images/contact-bg.jpg') no-repeat center center/cover;
+    color: white;
+}
+
+#contact .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+#contact .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#contact .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+/* Footer */
+footer {
+    background-color: #212529 !important;
+    color: #ffffff !important;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #007bff;
+}
+
+/* Scroll to Top Button */
+#scrollToTopBtn {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    bottom: 30px; /* Distancia desde abajo */
+    right: 30px; /* Distancia desde la derecha */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    font-size: 24px;
+    border: none;
+    outline: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 7px 15px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTopBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Media Queries para Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p.lead {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .service-card {
+        padding: 15px;
+    }
+
+    .service-card i {
+        font-size: 3rem;
+    }
+
+    #scrollToTopBtn {
+        bottom: 20px;
+        right: 20px;
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p.lead {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+}
