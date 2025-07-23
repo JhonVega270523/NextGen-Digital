@@ -6,11 +6,9 @@ body {
     overflow-x: hidden; /* Evita scroll horizontal en diseños responsive */
 }
 
-/* MODIFICACIÓN AÑADIDA AQUÍ */
 html {
     scroll-padding-top: 40px; /* Ajusta este valor según la altura de tu navbar */
 }
-/* FIN DE LA MODIFICACIÓN */
 
 /* Navbar */
 .navbar {
@@ -18,7 +16,6 @@ html {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Añadida la clase para cuando la navbar hace scroll */
 .navbar-scrolled {
     background-color: rgba(33, 37, 41, 0.95) !important; /* Un poco más opaca o un color diferente */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -30,15 +27,45 @@ html {
     color: #007bff !important; /* Color del logo */
 }
 
+/* Navbar - Efecto de luz en los nav-links */
 .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.75) !important;
     font-weight: 500;
     transition: color 0.3s ease;
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    overflow: hidden; /* Oculta el brillo fuera del enlace */
+    z-index: 1; /* Asegura que el texto esté sobre el brillo */
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: #ffffff !important;
+}
+
+.navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Inicia el brillo fuera del elemento a la izquierda */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); /* Gradiente de luz */
+    transition: none; /* Deshabilitar la transición para el pseudo-elemento */
+    z-index: -1; /* Asegura que el brillo esté debajo del texto */
+    animation: none; /* Por defecto sin animación */
+}
+
+.navbar-nav .nav-link:hover::before {
+    animation: nav-shine 1.5s infinite linear; /* Animación al pasar el ratón */
+}
+
+@keyframes nav-shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
 /* Hero Section */
@@ -65,10 +92,25 @@ html {
     margin: 0 auto 30px auto;
 }
 
-/* Efectos de animación (Bootstrap) - Asegúrate de tener Animate.css si quieres usar esto */
-/* Puedes incluir Animate.css en tu <head> si deseas animaciones más avanzadas */
-/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> */
+/* Animación para el botón de contacto en la Hero Section */
+.hero-contact-btn {
+    animation: pulse-button 2s infinite ease-in-out; /* Agregamos la animación */
+}
 
+@keyframes pulse-button {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.05); /* Ligeramente más grande */
+        box-shadow: 0 8px 16px rgba(0, 123, 255, 0.6); /* Sombra más pronunciada */
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+}
 
 /* Sections genericas */
 section {
@@ -94,11 +136,30 @@ h2::after {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    width: 80px;
+    width: 80px; /* Ancho inicial */
     height: 4px;
     background-color: #007bff;
     border-radius: 5px;
+    /* Animación de llenado y vaciado para la línea */
+    animation: line-fill-unfill 3s infinite alternate ease-in-out;
 }
+
+/* Keyframes para la animación de la línea */
+@keyframes line-fill-unfill {
+    0% {
+        width: 0px; /* Comienza vacía */
+        opacity: 0.7;
+    }
+    50% {
+        width: 120px; /* Se llena hasta un ancho mayor */
+        opacity: 1;
+    }
+    100% {
+        width: 0px; /* Se vacía de nuevo */
+        opacity: 0.7;
+    }
+}
+
 
 /* Services Section */
 .service-card {
@@ -124,7 +185,28 @@ h2::after {
     font-size: 4rem;
     margin-bottom: 20px;
     color: #007bff; /* Color principal por defecto */
+    /* Animación básica para iconos al cargar o al pasar el ratón */
+    transition: transform 0.3s ease;
 }
+
+/* Animación de "pulsado" para iconos al pasar el ratón o siempre */
+/* Puedes aplicar esta clase a cualquier icono en tu HTML para que pulse continuamente */
+.service-card i.pulsing-icon {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 
 /* Colores específicos para iconos de servicio */
 .service-card .text-primary { color: #007bff !important; }
@@ -168,6 +250,27 @@ h2::after {
 #contact {
     background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.8)), url('../images/contact-bg.jpg') no-repeat center center/cover;
     color: white;
+}
+
+/* Animación para el título "Contáctanos" en la sección de contacto */
+#contact .animated-contact-title {
+    animation: pulse-title 2s infinite ease-in-out; /* Misma animación de pulsado */
+    transform-origin: center center; /* Asegura que la escala se centre */
+}
+
+@keyframes pulse-title {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Ligera sombra para un mejor efecto */
+    }
+    50% {
+        transform: scale(1.02); /* Un poco más grande para el título */
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Sombra más intensa */
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
 }
 
 #contact .form-control {
