@@ -8,7 +8,7 @@ body {
 
 /* MODIFICACIÓN AÑADIDA AQUÍ */
 html {
-    scroll-padding-top: 10px; /* Ajusta este valor según la altura de tu navbar */
+    scroll-padding-top: 40px; /* Ajusta este valor según la altura de tu navbar */
 }
 /* FIN DE LA MODIFICACIÓN */
 
