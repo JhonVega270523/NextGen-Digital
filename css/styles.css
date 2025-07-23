@@ -7,13 +7,17 @@ body {
 }
 
 html {
-    scroll-padding-top: 40px; /* Ajusta este valor según la altura de tu navbar */
+    /* Ajustado para compensar la altura del navbar fijo en todas las pantallas. */
+    /* Este valor debe ser ligeramente mayor que la altura máxima de tu navbar. */
+    scroll-padding-top: 90px;
 }
 
 /* Navbar */
 .navbar {
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Aseguramos una altura mínima para la navbar */
+    min-height: 70px;
 }
 
 .navbar-scrolled {
@@ -180,7 +184,7 @@ h2::after {
     justify-content: space-between; /* Alinea el contenido y el botón al final */
     align-items: center; /* Centra horizontalmente los elementos hijos */
     height: 100%; /* Las tarjetas ocuparán el 100% de la altura disponible por align-items: stretch */
-    min-height: 350px; /* **ALTURA MÍNIMA AJUSTABLE**: Ajusta este valor según tus necesidades */
+    min-height: 350px; /* ALTURA MÍNIMA AJUSTABLE: Ajusta este valor según tus necesidades */
     text-align: center; /* Centra el texto dentro de la tarjeta */
 }
 
@@ -240,7 +244,7 @@ h2::after {
     flex-direction: column; /* Apila el contenido verticalmente */
     justify-content: space-between; /* Empuja el cuerpo de la tarjeta y el botón al final */
     height: 100%; /* Ocupará el 100% de la altura disponible por align-items: stretch */
-    min-height: 400px; /* **ALTURA MÍNIMA AJUSTABLE**: Ajusta este valor según tus necesidades, ya que tienen imagen */
+    min-height: 400px; /* ALTURA MÍNIMA AJUSTABLE: Ajusta este valor según tus necesidades, ya que tienen imagen */
 }
 
 .portfolio-item:hover {
@@ -400,6 +404,11 @@ footer {
 }
 
 @media (max-width: 576px) {
+    /* Puedes probar con un scroll-padding-top un poco mayor si el problema persiste específicamente en móviles pequeños */
+    /* html {
+        scroll-padding-top: 100px;
+    } */
+
     .hero-section h1 {
         font-size: 2rem;
     }
