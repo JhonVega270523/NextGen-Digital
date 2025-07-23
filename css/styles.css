@@ -6,6 +6,12 @@ body {
     overflow-x: hidden; /* Evita scroll horizontal en diseños responsive */
 }
 
+/* MODIFICACIÓN AÑADIDA AQUÍ */
+html {
+    scroll-padding-top: 10px; /* Ajusta este valor según la altura de tu navbar */
+}
+/* FIN DE LA MODIFICACIÓN */
+
 /* Navbar */
 .navbar {
     transition: background-color 0.3s ease;

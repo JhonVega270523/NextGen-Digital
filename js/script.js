@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector(this.getAttribute('href')).scrollIntoView({
                 behavior: 'smooth'
             });
+
+            // Opcional: Cerrar la navbar de Bootstrap en móviles después de hacer clic
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarToggler && navbarCollapse.classList.contains('show')) {
+                // Simula un clic para cerrar el menú desplegable
+                navbarToggler.click();
+            }
         });
     });
 
@@ -19,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToTopBtn.style.display = "block";
         } else {
             scrollToTopBtn.style.display = "none";
+        }
+
+        // Animación de la navbar al hacer scroll (cambiar color/fondo)
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) { // Si el scroll es mayor a 50px
+            navbar.classList.add('navbar-scrolled'); // Agrega una clase para cambiar el estilo
+        } else {
+            navbar.classList.remove('navbar-scrolled');
         }
     };
 
@@ -42,16 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if ((event.ctrlKey && event.key === 'u') || (event.metaKey && event.key === 'u')) {
             event.preventDefault();
             alert("Acceso al código fuente deshabilitado."); // Mensaje opcional
-        }
-    });
-
-    // Animación de la navbar al hacer scroll (cambiar color/fondo)
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) { // Si el scroll es mayor a 50px
-            navbar.classList.add('navbar-scrolled'); // Agrega una clase para cambiar el estilo
-        } else {
-            navbar.classList.remove('navbar-scrolled');
         }
     });
 });
