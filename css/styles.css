@@ -28,7 +28,13 @@ html {
 .navbar-brand {
     font-weight: bold;
     font-size: 2.5rem;
-    color: #007bff !important; /* Color del logo */
+    /* El color del navbar-brand ya está aquí, pero lo sobrescribiremos para el span */
+    color: inherit; /* Asegura que el color por defecto no interfiera con el span */
+}
+
+/* Color específico para el texto "NextGen Digital" dentro del navbar-brand */
+.navbar-brand .logo-text-shine {
+    color: #007bff !important; /* El azul principal del logo */
 }
 
 /* Navbar - Efecto de luz en los nav-links */
@@ -365,6 +371,34 @@ footer {
 
 #scrollToTopBtn:hover {
     background-color: #0056b3;
+}
+
+/* Barra de desplazamiento personalizada para navegadores basados en Webkit */
+/* El color principal de tu sitio es #007bff */
+
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento vertical */
+    height: 12px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Fondo de la pista de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados para la pista */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #007bff; /* Color del "pulgar" o la barra de desplazamiento en sí */
+    border-radius: 10px; /* Bordes redondeados para el pulgar */
+    border: 3px solid #f1f1f1; /* Un borde para hacerla más pequeña y que flote sobre la pista */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Color al pasar el ratón por el pulgar */
+}
+
+/* Opcional: Estilos para el rincón de la barra de desplazamiento */
+::-webkit-scrollbar-corner {
+    background: #f1f1f1;
 }
 
 /* Media Queries para Responsive Design */
