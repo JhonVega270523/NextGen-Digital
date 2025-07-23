@@ -70,12 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
             (event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(event.key.toUpperCase())) ||
             (event.metaKey && event.altKey && ['I', 'J', 'C'].includes(event.key.toUpperCase()))) {
             event.preventDefault();
-            alert("Acceso a herramientas de desarrollo deshabilitado."); // Mensaje opcional
         }
         // Deshabilita Ctrl+U / Cmd+U (Ver Código Fuente)
         if ((event.ctrlKey && event.key.toUpperCase() === 'U') || (event.metaKey && event.key.toUpperCase() === 'U')) {
             event.preventDefault();
-            alert("Acceso al código fuente deshabilitado."); // Mensaje opcional
         }
     });
 });
