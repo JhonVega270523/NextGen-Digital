@@ -50,7 +50,7 @@
         <div class="container">
             <h1 class="display-3 fw-bold animate__animated animate__fadeInDown">Innovación Digital</h1>
             <p class="lead mt-3 animate__animated animate__fadeInUp">Desarrollamos soluciones web a medida para impulsar tu crecimiento.</p>
-            <a href="https://wa.me/573003024889?text=Hola!%20Estoy%20interesado%20en%20adquirir%20un%20servicio." class="btn btn-primary btn-lg mt-4 animate__animated animate__zoomIn">Contáctanos Hoy</a>
+            <a href="https://wa.me/573003024889?text=Hola!%20Estoy%20interesado%20en%20adquirir%20un%20servicio." class="btn btn-primary btn-lg mt-4 animate__animated animate__zoomIn" target="_blank">Contáctanos Hoy</a>
         </div>
     </section>
 
@@ -132,7 +132,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Gestión de Inv y Calculadora Dig</h5>
                             <p class="card-text">Desarrollo de plataforma para inventario de productos, calculo de costos y ganancias.</p>
-                            <a href="https://jhonvega270523.github.io/InventarioLaurel/" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
+                            <a href="https://jhonvega270523.github.io/InventarioLaurel/" class="btn btn-outline-primary btn-sm" target="_blank">Ver Proyecto</a>
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Dashboard Area SST</h5>
                             <p class="card-text">Implementación de un sistema de gestión de datos de accdientes laborales.</p>
-                            <a href="https://jhonvega270523.github.io/DashboardSST/" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
+                            <a href="https://jhonvega270523.github.io/DashboardSST/" class="btn btn-outline-primary btn-sm" target="_blank">Ver Proyecto</a>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Tienda de comidas Sabor Viral</h5>
                             <p class="card-text">Desarrollo de menu digital de comidas y jugos.</p>
-                            <a href="https://jhonvega270523.github.io/SaborViral/" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
+                            <a href="https://jhonvega270523.github.io/SaborViral/" class="btn btn-outline-primary btn-sm" target="_blank">Ver Proyecto</a>
                         </div>
                     </div>
                 </div>
@@ -177,27 +177,28 @@
 
     <section id="contact" class="py-5 bg-primary text-white">
         <div class="container">
-            <h2 class="text-center mb-5 display-4 fw-bold">Contáctanos</h2>
+            <h1 class="text-center mb-5 display-4 fw-bold">Contáctanos</h1>
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6">
                     <p class="text-center mb-4">¿Listo para llevar tu negocio al siguiente nivel? Envíanos un mensaje y te responderemos a la brevedad.</p>
-                    <form>
+                    <form action="https://formspree.io/f/xdkdnjza" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="name" placeholder="Tu Nombre" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Tu Nombre" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu.correo@ejemplo.com" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="tu.correo@ejemplo.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Teléfono (Opcional)</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="+XX XXX XXX XXXX">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+Tu Teléfono">
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="message" rows="5" placeholder="Cuéntanos sobre tu proyecto o consulta..." required></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Cuéntanos sobre tu proyecto o consulta..." required></textarea>
                         </div>
+                        <input type="hidden" name="_next" value="http://127.0.0.1:5500/EMPRESA/index.html">
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-light btn-lg">Enviar Mensaje</button>
                         </div>

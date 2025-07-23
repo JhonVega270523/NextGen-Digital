@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // ---- LÓGICA CLAVE PARA FORZAR RECARGA Y RESETEO DEL FORMULARIO ----
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reset') === 'true') {
+        // Construye la URL sin el parámetro 'reset'
+        const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        // Recarga la página con la URL limpia, evitando que la URL con el parámetro quede en el historial
+        window.location.replace(newUrl);
+        // Detiene la ejecución del script aquí para que la recarga ocurra inmediatamente
+        return;
+    }
+    // ------------------------------------------------------------------
+
+    // Asegurarse de que la página siempre cargue en la parte superior.
+    // Aunque la recarga forzada ya lo hará, lo mantenemos como una doble seguridad.
+    window.scrollTo(0, 0);
+
     // Smooth scrolling para los enlaces de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -49,13 +65,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Los usuarios expertos pueden eludirla fácilmente. La seguridad real se gestiona en el backend.
     document.addEventListener('contextmenu', event => event.preventDefault()); // Deshabilita el clic derecho
     document.addEventListener('keydown', event => {
-        // Deshabilita F12 (Developer Tools)
-        if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) || (event.metaKey && event.altKey && (event.key === 'I' || event.key === 'J' || event.key === 'C'))) {
+        // Deshabilita F12 (Developer Tools) y otras combinaciones para abrir las Dev Tools
+        if (event.key === 'F12' ||
+            (event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(event.key.toUpperCase())) ||
+            (event.metaKey && event.altKey && ['I', 'J', 'C'].includes(event.key.toUpperCase()))) {
             event.preventDefault();
             alert("Acceso a herramientas de desarrollo deshabilitado."); // Mensaje opcional
         }
         // Deshabilita Ctrl+U / Cmd+U (Ver Código Fuente)
-        if ((event.ctrlKey && event.key === 'u') || (event.metaKey && event.key === 'u')) {
+        if ((event.ctrlKey && event.key.toUpperCase() === 'U') || (event.metaKey && event.key.toUpperCase() === 'U')) {
             event.preventDefault();
             alert("Acceso al código fuente deshabilitado."); // Mensaje opcional
         }
