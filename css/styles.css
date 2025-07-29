@@ -41,6 +41,7 @@ html {
 .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.75) !important;
     font-weight: 500;
+    font-size: 20px;
     transition: color 0.3s ease;
     position: relative; /* Necesario para posicionar el pseudo-elemento */
     overflow: hidden; /* Oculta el brillo fuera del enlace */
