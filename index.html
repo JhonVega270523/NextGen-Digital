@@ -17,13 +17,19 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand me-auto" href="index.html">
                 <img src="images/logo.png" alt="Logo Empresa" height="70" class="d-inline-block align-top">
-                <span class="logo-text-shine">NextGen Digital</span>
+                <span class="logo-text-shine d-none d-lg-inline">NextGen Digital</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <div class="navbar-title-mobile d-lg-none mx-auto text-center">
+                <span class="logo-text-shine">NextGen Digital</span>
+            </div>
+
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -163,13 +169,38 @@
     <section id="about" class="py-5">
         <div class="container">
             <h2 class="text-center mb-5 display-4 fw-bold">Sobre Nosotros</h2>
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <img src="images/about-us.png" class="img-fluid rounded shadow" alt="Equipo de trabajo">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="about-content-wrapper text-center text-lg-start">
+                        <img src="images/about-us.png" class="img-fluid rounded shadow-sm mb-4 about-image" alt="Equipo de trabajo">
+                        <p class="text-justify">Somos un equipo apasionado de desarrolladores y diseñadores dedicados a transformar ideas en soluciones digitales impactantes. Nos especializamos en la creación de productos tecnológicos que no solo lucen bien, sino que también funcionan de manera impecable y resuelven problemas reales de negocio.</p>
+                        <p class="text-justify">Nuestra misión es ayudar a empresas como la tuya a prosperar en el entorno digital, ofreciendo servicios personalizados y un enfoque centrado en el cliente. Desde el concepto inicial hasta la implementación final, trabajamos de la mano contigo para asegurar que cada proyecto supere tus expectativas.</p>
+                    </div>
                 </div>
-                <div class="col-md-6 mt-4 mt-md-0">
-                    <p>Somos un equipo apasionado de desarrolladores y diseñadores dedicados a transformar ideas en soluciones digitales impactantes. Nos especializamos en la creación de productos tecnológicos que no solo lucen bien, sino que también funcionan de manera impecable y resuelven problemas reales de negocio.</p>
-                    <p>Nuestra misión es ayudar a empresas como la tuya a prosperar en el entorno digital, ofreciendo servicios personalizados y un enfoque centrado en el cliente. Desde el concepto inicial hasta la implementación final, trabajamos de la mano contigo para asegurar que cada proyecto supere tus expectativas.</p>
+
+                <div class="col-lg-6">
+                    <div class="comment-form-wrapper">
+                        <h3 class="text-center mb-4">¡Tu Opinión es Importante!</h3>
+                        <p class="text-center mb-4">Ayúdanos a mejorar. Cuéntanos tu experiencia o déjanos un comentario.</p>
+                        <form action="https://formspree.io/f/xdkdnjza" method="POST" class="comment-form-about">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">¿Cómo calificarías tu experiencia?</label>
+                                <select class="form-select" id="rating" name="Calificación" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="Excelente">Excelente</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="Malo">Malo</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Tu Comentario / Observación</label>
+                                <textarea class="form-control" id="comment" name="Comentario" rows="4" placeholder="Escribe aquí tu opinión..." required></textarea>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Enviar Comentario</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -198,7 +229,7 @@
                             <label for="message" class="form-label">Mensaje</label>
                             <textarea class="form-control" id="message" name="message" rows="5" placeholder="Cuéntanos sobre tu proyecto o consulta..." required></textarea>
                         </div>
-                        <input type="hidden" name="_next" value="http://127.0.0.1:5500/EMPRESA/index.html">
+                        <input type="hidden" name="_next" value="http://127.0.0.1:5500/EMPRESA/index.html?reset=true">
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-light btn-lg">Enviar Mensaje</button>
                         </div>

@@ -25,16 +25,23 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Estilos de escritorio por defecto (cuando la navbar se expande) */
 .navbar-brand {
     font-weight: bold;
     font-size: 2.5rem;
-    /* El color del navbar-brand ya está aquí, pero lo sobrescribiremos para el span */
-    color: inherit; /* Asegura que el color por defecto no interfiera con el span */
+    color: inherit;
 }
 
-/* Color específico para el texto "NextGen Digital" dentro del navbar-brand */
+/* Color específico para el texto "NextGen Digital" dentro del navbar-brand (para desktop) */
 .navbar-brand .logo-text-shine {
     color: #007bff !important; /* El azul principal del logo */
+    /* Este estilo se aplicará en desktop gracias a la clase d-lg-inline en el HTML */
+}
+
+
+/* Ocultar el título móvil en pantallas grandes */
+.navbar-title-mobile {
+    display: none;
 }
 
 /* Navbar - Efecto de luz en los nav-links */
@@ -303,6 +310,76 @@ h2::after {
     text-align: justify; /* Esto justifica el texto */
 }
 
+/* Estilos para la nueva disposición en la sección "Sobre Nosotros" */
+.about-content-wrapper {
+    display: flex;
+    flex-direction: column; /* Apila la imagen y el texto verticalmente */
+    align-items: flex-start; /* Alinea los elementos a la izquierda (en pantallas grandes) */
+    height: 100%; /* Para que la columna izquierda ocupe la altura completa de la fila si el formulario es más alto */
+    padding-right: 20px; /* Espacio entre el contenido de about y el formulario */
+}
+
+.about-image {
+    max-width: 70%; /* Tamaño más pequeño para la imagen */
+    height: auto;
+    margin-bottom: 20px; /* Espacio entre la imagen y el texto */
+    display: block; /* Para que margin: auto funcione si el texto se centra en móviles */
+    margin-left: auto; /* Centrar en móviles si el texto es text-center */
+    margin-right: auto; /* Centrar en móviles si el texto es text-center */
+}
+
+.comment-form-wrapper {
+    background-color: #f8f9fa; /* Fondo claro para el formulario */
+    padding: 20px; /* REDUCIDO: Padding interno del contenedor del formulario */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
+    height: 100%; /* Para que el wrapper ocupe la altura completa de la columna */
+    max-width: 450px; /* NUEVO: Ancho máximo fijo para el formulario (ajustar si es necesario) */
+    margin-left: auto; /* Para centrar o alinear a la derecha dentro de su columna */
+    margin-right: auto; /* Para centrar o alinear a la derecha dentro de su columna */
+}
+
+/* Estilos para el formulario de comentarios en "Sobre Nosotros" */
+.comment-form-about {
+    /* No se necesita un background-color aquí si ya lo tiene el wrapper */
+    padding: 0; /* Eliminamos el padding duplicado aquí */
+}
+
+.comment-form-about .form-label {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.comment-form-about .form-control,
+.comment-form-about .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: #495057;
+    background-color: #fff;
+}
+
+.comment-form-about .form-control::placeholder {
+    color: #6c757d; /* Placeholder más visible */
+}
+
+.comment-form-about .form-control:focus,
+.comment-form-about .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.comment-form-about .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+.comment-form-about .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
 
 /* Contact Section */
 #contact {
@@ -416,6 +493,103 @@ footer {
 }
 
 /* Media Queries para Responsive Design */
+
+/* Estilos específicos para pantallas pequeñas (hasta 'lg' breakpoint) */
+@media (max-width: 991.98px) {
+    /* Ajustes para el contenedor de la navbar en móvil */
+    .navbar .container {
+        display: flex; /* Habilitar flexbox */
+        justify-content: space-between; /* Espacio entre los elementos */
+        align-items: center; /* Centrar verticalmente */
+        width: 100%; /* Ocupar todo el ancho */
+        padding-left: 15px; /* Espacio a la izquierda del logo */
+        padding-right: 15px; /* Espacio a la derecha de la hamburguesa */
+        position: relative; /* Para el posicionamiento absoluto del título */
+        min-height: 80px; /* Aumentar la altura mínima del contenedor para dar espacio al título */
+    }
+
+    /* Mostrar el título móvil y centrarlo */
+    .navbar-title-mobile {
+        display: block; /* Asegurar que se muestre en móviles */
+        position: absolute; /* Posicionamiento absoluto para sobreponer */
+        left: 50%; /* Centrar horizontalmente */
+        transform: translateX(-50%); /* Ajuste fino de centrado */
+        font-size: 1.8rem; /* Tamaño del título móvil */
+        font-weight: bold;
+        color: #007bff; /* Color del texto del título */
+        line-height: 1.2; /* Aumentar line-height para más espacio vertical entre líneas */
+        text-align: center; /* Asegurar que el texto dentro del div también esté centrado */
+
+        /* Ajustar ancho para evitar que se corte */
+        max-width: calc(100% - (70px + 15px + 50px + 15px)); /* (Altura Logo + padding izquierdo del container + Ancho Hamburguesa + padding derecho del container) */
+        /* 70px es la altura del logo (también se usó como referencia para su ancho aproximado) */
+        /* 50px es un ancho estimado para el botón de hamburguesa */
+
+        white-space: normal; /* Permite saltos de línea */
+        overflow: visible; /* IMPORTANTE: Permitir que el contenido desborde si es necesario para evitar cortes */
+        /* text-overflow: ellipsis;  Comentar o eliminar si quieres que el texto se vea completo aunque ocupe más espacio */
+        padding: 0 5px; /* Pequeño padding interno para que el texto no se pegue a los bordes del div */
+        top: 50%; /* Centrar verticalmente el título dentro de la navbar */
+        transform: translate(-50%, -50%); /* Ajuste fino de centrado horizontal y vertical */
+    }
+
+    /* Ajuste para el logo en móviles */
+    .navbar-brand {
+        margin-right: 0 !important; /* Elimina el margen automático de la derecha */
+        order: 1; /* Ordena el logo a la izquierda */
+        z-index: 10; /* Asegura que esté por encima del título centrado */
+    }
+
+    /* Ajuste para el botón de hamburguesa en móviles */
+    .navbar-toggler {
+        margin-left: 0 !important; /* Elimina el margen automático de la izquierda */
+        order: 3; /* Ordena la hamburguesa a la derecha */
+        z-index: 10; /* Asegura que esté por encima del título centrado */
+    }
+
+    /* Ocultar el texto "NextGen Digital" del navbar-brand original en móviles,
+       ya que lo mostramos en el div centrado. */
+    .navbar-brand .logo-text-shine {
+        display: none !important; /* Asegurar que se oculte */
+    }
+
+    /* Ajustes generales de las secciones en móviles */
+    .about-image {
+        max-width: 80%; /* Un poco más grande en tabletas */
+    }
+    .about-content-wrapper {
+        padding-right: 0; /* Eliminar el padding a la derecha en móviles/tabletas */
+    }
+    .comment-form-wrapper {
+        margin-top: 30px; /* Espacio superior para separar del bloque de "About" */
+        max-width: 100%; /* El formulario vuelve a ocupar todo el ancho disponible */
+        padding: 25px; /* Un poco más de padding en móvil si se siente muy apretado */
+    }
+
+    /* Asegurar que el menú colapsado ocupe todo el ancho y se vea bien */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%; /* Debajo de la navbar */
+        left: 0;
+        width: 100%;
+        background-color: rgba(33, 37, 41, 0.95); /* Fondo similar a la navbar */
+        z-index: 999;
+    }
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+    .navbar-nav .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+    .navbar-nav .nav-link {
+        padding: 10px 0 !important;
+    }
+}
+
+
 @media (max-width: 768px) {
     .hero-section h1 {
         font-size: 2.5rem;
@@ -452,11 +626,6 @@ footer {
 }
 
 @media (max-width: 576px) {
-    /* Puedes probar con un scroll-padding-top un poco mayor si el problema persiste específicamente en móviles pequeños */
-    /* html {
-        scroll-padding-top: 100px;
-    } */
-
     .hero-section h1 {
         font-size: 2rem;
     }
@@ -480,5 +649,14 @@ footer {
 
     .portfolio-item {
         min-height: 320px; /* Más ajustes para pantallas móviles si es necesario */
+    }
+
+    .about-image {
+        max-width: 90%; /* Más grande en móviles muy pequeños */
+    }
+
+    /* Ajuste para el tamaño de fuente del título móvil en pantallas muy pequeñas */
+    .navbar-title-mobile {
+        font-size: 1.4rem; /* Un poco más pequeño para móviles muy pequeños */
     }
 }
