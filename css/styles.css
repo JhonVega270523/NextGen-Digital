@@ -1,151 +1,429 @@
-/* Generales */
+/* ===== RESET Y CONFIGURACIÓN BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    overflow-x: hidden; /* Evita scroll horizontal en diseños responsive */
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
 }
 
 html {
-    /* Ajustado para compensar la altura del navbar fijo en todas las pantallas. */
-    /* Este valor debe ser ligeramente mayor que la altura máxima de tu navbar. */
     scroll-padding-top: 90px;
+    scroll-behavior: smooth;
 }
 
-/* Navbar */
-.navbar {
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Aseguramos una altura mínima para la navbar */
-    min-height: 70px;
+/* ===== PRELOADER ===== */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
 }
 
-.navbar-scrolled {
-    background-color: rgba(33, 37, 41, 0.95) !important; /* Un poco más opaca o un color diferente */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.preloader.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* Estilos de escritorio por defecto (cuando la navbar se expande) */
-.navbar-brand {
-    font-weight: bold;
-    font-size: 2.5rem;
-    color: inherit;
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 123, 255, 0.3);
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-/* Color específico para el texto "NextGen Digital" dentro del navbar-brand (para desktop) */
-.navbar-brand .logo-text-shine {
-    color: #007bff !important; /* El azul principal del logo */
-    /* Este estilo se aplicará en desktop gracias a la clase d-lg-inline en el HTML */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-
-/* Ocultar el título móvil en pantallas grandes */
-.navbar-title-mobile {
-    display: none;
+/* ===== NAVBAR MEJORADO Y MODERNO ===== */
+#mainNavbar {
+    background: rgba(15, 23, 42, 0.85) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 80px;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar - Efecto de luz en los nav-links */
-.navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.75) !important;
+#mainNavbar.navbar-scrolled {
+    background: rgba(15, 23, 42, 0.95) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(25px);
+}
+
+/* Logo Container */
+.logo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.logo-img {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(0, 123, 255, 0.3));
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(0, 123, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: logo-pulse 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes logo-pulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+/* Brand Text */
+.brand-text {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+}
+
+.brand-primary {
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-secondary {
+    color: #ffffff;
+    font-weight: 400;
+}
+
+/* Mobile Brand */
+.navbar-brand-mobile {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.brand-text-mobile {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* Custom Toggler */
+.custom-toggler {
+    border: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.toggler-icon {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 0;
+}
+
+.top-bar {
+    top: 0;
+}
+
+.middle-bar {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bottom-bar {
+    bottom: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .top-bar {
+    transform: rotate(45deg);
+    top: 50%;
+}
+
+.custom-toggler[aria-expanded="true"] .middle-bar {
+    opacity: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .bottom-bar {
+    transform: rotate(-45deg);
+    bottom: 50%;
+}
+
+/* Navigation Items */
+.navbar-nav {
+    gap: 0.5rem;
+}
+
+.nav-item-custom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.8) !important;
     font-weight: 500;
-    font-size: 20px;
-    transition: color 0.3s ease;
-    position: relative; /* Necesario para posicionar el pseudo-elemento */
-    overflow: hidden; /* Oculta el brillo fuera del enlace */
-    z-index: 1; /* Asegura que el texto esté sobre el brillo */
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    border: 1px solid transparent;
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: #ffffff !important;
-}
-
-.navbar-nav .nav-link::before {
+.nav-item-custom::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%; /* Inicia el brillo fuera del elemento a la izquierda */
+    left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); /* Gradiente de luz */
-    transition: none; /* Deshabilitar la transición para el pseudo-elemento */
-    z-index: -1; /* Asegura que el brillo esté debajo del texto */
-    animation: none; /* Por defecto sin animación */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+    border-radius: 25px;
 }
 
-.navbar-nav .nav-link:hover::before {
-    animation: nav-shine 1.5s infinite linear; /* Animación al pasar el ratón */
+.nav-item-custom:hover::before {
+    left: 100%;
 }
 
-@keyframes nav-shine {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
+.nav-item-custom:hover,
+.nav-item-custom.active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.2);
 }
 
-/* Hero Section */
+.nav-icon {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item-custom:hover .nav-icon {
+    transform: scale(1.1);
+    color: #00d4ff;
+}
+
+/* Contact Nav Special */
+.contact-nav {
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    color: white !important;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.contact-nav:hover {
+    background: linear-gradient(45deg, #0056b3, #00b3d4) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4) !important;
+}
+
+.contact-nav .nav-icon {
+    color: white;
+}
+
+/* ===== HERO SECTION CON IMAGEN DE FONDO ===== */
 .hero-section {
-    min-height: 100vh; /* Altura completa de la ventana */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero-bg.jpg') no-repeat center center/cover;
+    min-height: 100vh;
     color: white;
     position: relative;
-    padding-top: 56px; /* Para compensar la navbar fija */
-    display: flex; /* Asegura centrado vertical del contenido */
+    padding-top: 56px;
+    display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
+}
+
+/* Imagen de fondo como elemento HTML */
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+/* Overlay para el gradiente oscuro */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+    z-index: 2;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0, 123, 255, 0.2), rgba(102, 126, 234, 0.2));
+    animation: hero-glow 4s ease-in-out infinite alternate;
+    z-index: 3;
+}
+
+@keyframes hero-glow {
+    0% { opacity: 0.2; }
+    100% { opacity: 0.5; }
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .hero-section h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
+    font-weight: 800;
     margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out;
+    line-height: 1.2;
 }
 
 .hero-section p.lead {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     max-width: 800px;
     margin: 0 auto 30px auto;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease-out 0.3s both;
+    line-height: 1.5;
 }
 
-/* Animación para el botón de contacto en la Hero Section */
 .hero-contact-btn {
-    animation: pulse-button 2s infinite ease-in-out; /* Agregamos la animación */
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
-@keyframes pulse-button {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+.hero-contact-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.6);
+    background: linear-gradient(45deg, #0056b3, #00b3d4);
+}
+
+/* ===== ANIMACIONES DE ENTRADA ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-    50% {
-        transform: scale(1.05); /* Ligeramente más grande */
-        box-shadow: 0 8px 16px rgba(0, 123, 255, 0.6); /* Sombra más pronunciada */
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* Sections genericas */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== SECTIONS GENERICAS MEJORADAS ===== */
 section {
-    padding: 80px 0;
+    padding: 100px 0;
+    position: relative;
 }
 
 section:nth-child(even) {
-    background-color: #f8f9fa; /* Fondo claro para secciones alternas */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+section:nth-child(odd) {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 }
 
 h2 {
-    font-size: 2.8rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     position: relative;
-    padding-bottom: 15px;
-    margin-bottom: 50px;
-    color: #343a40;
+    padding-bottom: 20px;
+    margin-bottom: 60px;
+    color: #2c3e50;
+    text-align: center;
 }
 
 h2::after {
@@ -154,264 +432,320 @@ h2::after {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    width: 80px; /* Ancho inicial */
-    height: 4px;
-    background-color: #007bff;
-    border-radius: 5px;
-    /* Animación de llenado y vaciado para la línea */
-    animation: line-fill-unfill 3s infinite alternate ease-in-out;
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    border-radius: 3px;
+    animation: line-expand 2s ease-in-out infinite alternate;
 }
 
-/* Keyframes para la animación de la línea */
-@keyframes line-fill-unfill {
-    0% {
-        width: 0px; /* Comienza vacía */
-        opacity: 0.7;
-    }
-    50% {
-        width: 120px; /* Se llena hasta un ancho mayor */
-        opacity: 1;
-    }
-    100% {
-        width: 0px; /* Se vacía de nuevo */
-        opacity: 0.7;
-    }
+@keyframes line-expand {
+    0% { width: 50px; opacity: 0.7; }
+    100% { width: 150px; opacity: 1; }
 }
 
-
-/* Services Section - Asegurar que todas las tarjetas sean del mismo tamaño y alineación de botones */
-#services .row.row-cols-1.row-cols-md-2.row-cols-lg-3 {
-    display: flex; /* Habilitar Flexbox en el contenedor de las tarjetas */
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en nuevas líneas */
-    align-items: stretch; /* ESTO ES CLAVE: Estira todos los ítems para que tengan la misma altura */
-}
-
+/* ===== SERVICIOS CON GLASSMORPHISM ===== */
 .service-card {
     border: none;
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    background-color: #ffffff;
-    padding: 20px;
-    display: flex; /* Habilitar Flexbox para el contenido interno */
-    flex-direction: column; /* Apila el contenido verticalmente */
-    justify-content: space-between; /* Alinea el contenido y empuja el botón al final */
-    align-items: center; /* Centra horizontalmente los elementos hijos */
-    height: 100%; /* Las tarjetas ocuparán el 100% de la altura disponible por align-items: stretch */
-    min-height: 350px; /* ALTURA MÍNIMA AJUSTABLE: Ajusta este valor según tus necesidades */
-    text-align: center; /* Centra el texto dentro de la tarjeta */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    min-height: 380px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.service-card:hover::before {
+    left: 100%;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .service-card i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    color: #007bff; /* Color principal por defecto */
-    /* Animación básica para iconos al cargar o al pasar el ratón */
-    transition: transform 0.3s ease;
+    font-size: 4.5rem;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
-/* Animación de "pulsado" para iconos al pasar el ratón o siempre */
-/* Puedes aplicar esta clase a cualquier icono en tu HTML para que pulse continuamente */
-.service-card i.pulsing-icon {
-    animation: pulse 2s infinite ease-in-out;
+.service-card:hover i {
+    transform: scale(1.1) rotate(5deg);
 }
 
-@keyframes pulse {
+.service-card .pulsing-icon {
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
     0% {
         transform: scale(1);
+        filter: drop-shadow(0 0 5px currentColor);
     }
     50% {
         transform: scale(1.05);
+        filter: drop-shadow(0 0 20px currentColor);
     }
     100% {
         transform: scale(1);
+        filter: drop-shadow(0 0 5px currentColor);
     }
 }
 
-.service-card .card-body {
-    display: flex; /* Habilita flexbox para el contenido del body */
-    flex-direction: column; /* Apila los elementos verticalmente */
-    justify-content: space-between; /* Empuja el botón "Contactar" al final del card-body */
-    flex-grow: 1; /* Permite que el cuerpo de la tarjeta crezca y ocupe el espacio restante */
-    width: 100%; /* Asegura que el card-body ocupe todo el ancho disponible */
+.service-card .card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
 }
 
 .service-card .card-text {
-    flex-grow: 1; /* Permite que el texto ocupe el espacio restante antes del botón */
-    margin-bottom: 15px; /* Espacio antes del botón */
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-
-/* Colores específicos para iconos de servicio */
-.service-card .text-primary { color: #007bff !important; }
-.service-card .text-success { color: #28a745 !important; }
-.service-card .text-info { color: #17a2b8 !important; }
-.service-card .text-warning { color: #ffc107 !important; }
-.service-card .text-danger { color: #dc3545 !important; }
-.service-card .text-secondary { color: #6c757d !important; }
-
-/* Portfolio Section - Asegurar que todas las tarjetas sean del mismo tamaño y alineación de botones */
-#portfolio .row.row-cols-1.row-cols-md-2.row-cols-lg-3 {
-    display: flex; /* Habilitar Flexbox en el contenedor de las tarjetas */
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en nuevas líneas */
-    align-items: stretch; /* ESTO ES CLAVE: Estira todos los ítems para que tengan la misma altura */
+.service-card .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
 }
 
+.service-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.service-card .btn {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    align-self: center;
+    width: fit-content;
+}
+
+.service-card .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.service-card .btn:hover::before {
+    left: 100%;
+}
+
+/* ===== PORTFOLIO MEJORADO ===== */
 .portfolio-item {
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex; /* Habilitar Flexbox para el contenido interno */
-    flex-direction: column; /* Apila el contenido verticalmente */
-    justify-content: space-between; /* Empuja el cuerpo de la tarjeta y el botón al final */
-    height: 100%; /* Ocupará el 100% de la altura disponible por align-items: stretch */
-    min-height: 400px; /* ALTURA MÍNIMA AJUSTABLE: Ajusta este valor según tus necesidades, ya que tienen imagen */
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 450px;
+    position: relative;
 }
 
 .portfolio-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .portfolio-item img {
     width: 100%;
-    height: 200px; /* Altura fija para las imágenes del portafolio */
-    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
-    border-bottom: 1px solid #eee;
-    flex-shrink: 0; /* Evita que la imagen se encoja */
+    height: 250px;
+    object-fit: cover;
+    transition: all 0.4s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.1);
 }
 
 .portfolio-item .card-body {
-    padding: 20px;
-    flex-grow: 1; /* Permite que el cuerpo de la tarjeta crezca y ocupe el espacio restante */
-    display: flex; /* Habilita flexbox para el contenido del body */
-    flex-direction: column; /* Apila los elementos verticalmente */
-    justify-content: space-between; /* Empuja el botón "Ver Proyecto" al final si es necesario */
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.95);
 }
 
-.portfolio-item .card-body .card-title {
-    margin-bottom: 10px; /* Espacio entre título y texto */
+.portfolio-item .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
 }
 
-.portfolio-item .card-body .card-text {
-    flex-grow: 1; /* Permite que el texto ocupe el espacio restante antes del botón */
-    margin-bottom: 15px; /* Espacio antes del botón */
+.portfolio-item .card-text {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-
-/* About Section */
-#about p {
-    text-align: justify; /* Esto justifica el texto */
-}
-
-/* Estilos para la nueva disposición en la sección "Sobre Nosotros" */
+/* ===== ABOUT SECTION MEJORADA ===== */
 .about-content-wrapper {
     display: flex;
-    flex-direction: column; /* Apila la imagen y el texto verticalmente */
-    align-items: flex-start; /* Alinea los elementos a la izquierda (en pantallas grandes) */
-    height: 100%; /* Para que la columna izquierda ocupe la altura completa de la fila si el formulario es más alto */
-    padding-right: 20px; /* Espacio entre el contenido de about y el formulario */
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    padding-right: 30px;
 }
 
 .about-image {
-    max-width: 70%; /* Tamaño más pequeño para la imagen */
+    max-width: 80%;
     height: auto;
-    margin-bottom: 20px; /* Espacio entre la imagen y el texto */
-    display: block; /* Para que margin: auto funcione si el texto se centra en móviles */
-    margin-left: auto; /* Centrar en móviles si el texto es text-center */
-    margin-right: auto; /* Centrar en móviles si el texto es text-center */
+    margin-bottom: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.about-content-wrapper p {
+    text-align: justify;
+    margin-bottom: 20px;
+    line-height: 1.8;
 }
 
 .comment-form-wrapper {
-    background-color: #f8f9fa; /* Fondo claro para el formulario */
-    padding: 20px; /* REDUCIDO: Padding interno del contenedor del formulario */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
-    height: 100%; /* Para que el wrapper ocupe la altura completa de la columna */
-    max-width: 450px; /* NUEVO: Ancho máximo fijo para el formulario (ajustar si es necesario) */
-    margin-left: auto; /* Para centrar o alinear a la derecha dentro de su columna */
-    margin-right: auto; /* Para centrar o alinear a la derecha dentro de su columna */
-}
-
-/* Estilos para el formulario de comentarios en "Sobre Nosotros" */
-.comment-form-about {
-    /* No se necesita un background-color aquí si ya lo tiene el wrapper */
-    padding: 0; /* Eliminamos el padding duplicado aquí */
-}
-
-.comment-form-about .form-label {
-    font-weight: 600;
-    color: #343a40;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .comment-form-about .form-control,
 .comment-form-about .form-select {
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 10px 15px;
-    color: #495057;
-    background-color: #fff;
-}
-
-.comment-form-about .form-control::placeholder {
-    color: #6c757d; /* Placeholder más visible */
+    border: 2px solid rgba(0, 123, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
 .comment-form-about .form-control:focus,
 .comment-form-about .form-select:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
 }
 
 .comment-form-about .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    font-weight: bold;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
 .comment-form-about .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
 }
 
-
-/* Contact Section */
+/* ===== CONTACT SECTION MEJORADA ===== */
 #contact {
-    background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.8)), url('../images/contact-bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.9), rgba(102, 126, 234, 0.9)), 
+                url('../images/contact-bg.jpg') no-repeat center center/cover;
     color: white;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Animación para el título "Contáctanos" en la sección de contacto */
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
 #contact .animated-contact-title {
-    animation: pulse-title 2s infinite ease-in-out; /* Misma animación de pulsado */
-    transform-origin: center center; /* Asegura que la escala se centre */
+    animation: glow-text 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-@keyframes pulse-title {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Ligera sombra para un mejor efecto */
-    }
-    50% {
-        transform: scale(1.02); /* Un poco más grande para el título */
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Sombra más intensa */
-    }
-    100% {
-        transform: scale(1);
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
+@keyframes glow-text {
+    0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6); }
 }
 
 #contact .form-control {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
     color: white;
+    padding: 15px 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 #contact .form-control::placeholder {
@@ -419,244 +753,412 @@ h2::after {
 }
 
 #contact .form-control:focus {
-    background-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     border-color: white;
     box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
 }
 
-/* Footer */
+#contact .btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+#contact .btn-light:hover {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== FOOTER MEJORADO ===== */
 footer {
-    background-color: #212529 !important;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
     color: #ffffff !important;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
 }
 
 .social-icons a {
     color: #ffffff;
-    font-size: 1.5rem;
-    margin: 0 10px;
-    transition: color 0.3s ease;
+    font-size: 1.8rem;
+    margin: 0 15px;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .social-icons a:hover {
     color: #007bff;
+    transform: translateY(-3px) scale(1.2);
+    text-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
 }
 
-/* Scroll to Top Button */
+/* ===== SCROLL TO TOP MEJORADO ===== */
 #scrollToTopBtn {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Fijo en la pantalla */
-    bottom: 30px; /* Distancia desde abajo */
-    right: 30px; /* Distancia desde la derecha */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-    font-size: 24px;
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    font-size: 20px;
     border: none;
     outline: none;
-    background-color: #007bff;
+    background: linear-gradient(45deg, #007bff, #00d4ff);
     color: white;
     cursor: pointer;
-    padding: 7px 15px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #scrollToTopBtn:hover {
-    background-color: #0056b3;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.6);
 }
 
-/* Barra de desplazamiento personalizada para navegadores basados en Webkit */
-/* El color principal de tu sitio es #007bff */
-
+/* ===== SCROLLBAR PERSONALIZADA ===== */
 ::-webkit-scrollbar {
-    width: 12px; /* Ancho de la barra de desplazamiento vertical */
-    height: 12px; /* Altura de la barra de desplazamiento horizontal */
+    width: 12px;
+    height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Fondo de la pista de la barra de desplazamiento */
-    border-radius: 10px; /* Bordes redondeados para la pista */
+    background: rgba(241, 241, 241, 0.8);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #007bff; /* Color del "pulgar" o la barra de desplazamiento en sí */
-    border-radius: 10px; /* Bordes redondeados para el pulgar */
-    border: 3px solid #f1f1f1; /* Un borde para hacerla más pequeña y que flote sobre la pista */
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    border-radius: 10px;
+    border: 3px solid rgba(241, 241, 241, 0.8);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #0056b3; /* Color al pasar el ratón por el pulgar */
+    background: linear-gradient(45deg, #0056b3, #00b3d4);
 }
 
-/* Opcional: Estilos para el rincón de la barra de desplazamiento */
-::-webkit-scrollbar-corner {
-    background: #f1f1f1;
+/* ===== WHATSAPP FLOATING BUTTON ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 1000;
+    background: #25d366;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: whatsapp-pulse 2s infinite;
+    text-decoration: none;
 }
 
-/* Media Queries para Responsive Design */
+.whatsapp-float:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+    color: white;
+    text-decoration: none;
+}
 
-/* Estilos específicos para pantallas pequeñas (hasta 'lg' breakpoint) */
+@keyframes whatsapp-pulse {
+    0% {
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1);
+    }
+    100% {
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    }
+}
+
+/* ===== MEDIA QUERIES MEJORADAS ===== */
 @media (max-width: 991.98px) {
-    /* Ajustes para el contenedor de la navbar en móvil */
-    .navbar .container {
-        display: flex; /* Habilitar flexbox */
-        justify-content: space-between; /* Espacio entre los elementos */
-        align-items: center; /* Centrar verticalmente */
-        width: 100%; /* Ocupar todo el ancho */
-        padding-left: 15px; /* Espacio a la izquierda del logo */
-        padding-right: 15px; /* Espacio a la derecha de la hamburguesa */
-        position: relative; /* Para el posicionamiento absoluto del título */
-        min-height: 80px; /* Aumentar la altura mínima del contenedor para dar espacio al título */
+    #mainNavbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        position: relative;
+        min-height: 80px;
     }
 
-    /* Mostrar el título móvil y centrarlo */
-    .navbar-title-mobile {
-        display: block; /* Asegurar que se muestre en móviles */
-        position: absolute; /* Posicionamiento absoluto para sobreponer */
-        left: 50%; /* Centrar horizontalmente */
-        transform: translateX(-50%); /* Ajuste fino de centrado */
-        font-size: 1.8rem; /* Tamaño del título móvil */
-        font-weight: bold;
-        color: #007bff; /* Color del texto del título */
-        line-height: 1.2; /* Aumentar line-height para más espacio vertical entre líneas */
-        text-align: center; /* Asegurar que el texto dentro del div también esté centrado */
-
-        /* Ajustar ancho para evitar que se corte */
-        max-width: calc(100% - (70px + 15px + 50px + 15px)); /* (Altura Logo + padding izquierdo del container + Ancho Hamburguesa + padding derecho del container) */
-        /* 70px es la altura del logo (también se usó como referencia para su ancho aproximado) */
-        /* 50px es un ancho estimado para el botón de hamburguesa */
-
-        white-space: normal; /* Permite saltos de línea */
-        overflow: visible; /* IMPORTANTE: Permitir que el contenido desborde si es necesario para evitar cortes */
-        /* text-overflow: ellipsis;  Comentar o eliminar si quieres que el texto se vea completo aunque ocupe más espacio */
-        padding: 0 5px; /* Pequeño padding interno para que el texto no se pegue a los bordes del div */
-        top: 50%; /* Centrar verticalmente el título dentro de la navbar */
-        transform: translate(-50%, -50%); /* Ajuste fino de centrado horizontal y vertical */
-    }
-
-    /* Ajuste para el logo en móviles */
     .navbar-brand {
-        margin-right: 0 !important; /* Elimina el margen automático de la derecha */
-        order: 1; /* Ordena el logo a la izquierda */
-        z-index: 10; /* Asegura que esté por encima del título centrado */
+        margin-right: 0 !important;
+        order: 1;
+        z-index: 10;
     }
 
-    /* Ajuste para el botón de hamburguesa en móviles */
-    .navbar-toggler {
-        margin-left: 0 !important; /* Elimina el margen automático de la izquierda */
-        order: 3; /* Ordena la hamburguesa a la derecha */
-        z-index: 10; /* Asegura que esté por encima del título centrado */
+    .navbar-brand-mobile {
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        font-size: 1.8rem;
+        font-weight: bold;
+        max-width: calc(100% - 140px);
+        white-space: normal;
+        overflow: visible;
+        padding: 0 5px;
+        text-align: center;
+        z-index: 1;
     }
 
-    /* Ocultar el texto "NextGen Digital" del navbar-brand original en móviles,
-       ya que lo mostramos en el div centrado. */
-    .navbar-brand .logo-text-shine {
-        display: none !important; /* Asegurar que se oculte */
+    .custom-toggler {
+        margin-left: 0 !important;
+        order: 3;
+        z-index: 10;
     }
 
-    /* Ajustes generales de las secciones en móviles */
-    .about-image {
-        max-width: 80%; /* Un poco más grande en tabletas */
-    }
-    .about-content-wrapper {
-        padding-right: 0; /* Eliminar el padding a la derecha en móviles/tabletas */
-    }
-    .comment-form-wrapper {
-        margin-top: 30px; /* Espacio superior para separar del bloque de "About" */
-        max-width: 100%; /* El formulario vuelve a ocupar todo el ancho disponible */
-        padding: 25px; /* Un poco más de padding en móvil si se siente muy apretado */
+    .brand-text {
+        display: none !important;
     }
 
-    /* Asegurar que el menú colapsado ocupe todo el ancho y se vea bien */
     .navbar-collapse {
         position: absolute;
-        top: 100%; /* Debajo de la navbar */
+        top: 100%;
         left: 0;
         width: 100%;
-        background-color: rgba(33, 37, 41, 0.95); /* Fondo similar a la navbar */
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
         z-index: 999;
+        border-radius: 0 0 20px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
+
     .navbar-nav {
         flex-direction: column;
         align-items: center;
-        padding: 15px 0;
+        padding: 20px 0;
+        gap: 0.25rem;
     }
+
     .navbar-nav .nav-item {
         width: 100%;
         text-align: center;
+        margin: 5px 0;
     }
-    .navbar-nav .nav-link {
-        padding: 10px 0 !important;
+
+    .nav-item-custom {
+        padding: 12px 20px !important;
+        border-radius: 25px;
+        margin: 5px 20px;
+        justify-content: center;
+    }
+
+    .about-image {
+        max-width: 90%;
+    }
+
+    .about-content-wrapper {
+        padding-right: 0;
+    }
+
+    .comment-form-wrapper {
+        margin-top: 30px;
+        max-width: 100%;
+        padding: 25px;
     }
 }
 
-
 @media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+    
+    .hero-section .container {
+        padding: 0 1.5rem;
+        margin: 0 1rem;
+    }
+    
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .hero-section p.lead {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     h2 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
 
-    /* Ajustes específicos para tarjetas en pantallas medianas */
     .service-card {
-        padding: 15px;
-        min-height: 300px; /* Puedes ajustar la altura mínima para pantallas más pequeñas */
+        padding: 20px;
+        min-height: 320px;
     }
 
     .service-card i {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
 
     .portfolio-item {
-        min-height: 350px; /* Ajusta la altura mínima para pantallas más pequeñas */
+        min-height: 380px;
     }
 
     #scrollToTopBtn {
         bottom: 20px;
         right: 20px;
-        font-size: 20px;
-        padding: 8px 12px;
+        font-size: 18px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .whatsapp-float {
+        bottom: 80px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .brand-text-mobile {
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 576px) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+    
+    .hero-section .container {
+        padding: 0 1rem;
+        margin: 0 0.5rem;
+    }
+    
     .hero-section h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     .hero-section p.lead {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     section {
-        padding: 60px 0;
+        padding: 80px 0;
     }
 
-    /* Ajustes específicos para tarjetas en pantallas pequeñas */
     .service-card {
-        min-height: 280px; /* Más ajustes para pantallas móviles si es necesario */
+        min-height: 300px;
     }
 
     .portfolio-item {
-        min-height: 320px; /* Más ajustes para pantallas móviles si es necesario */
+        min-height: 350px;
     }
 
     .about-image {
-        max-width: 90%; /* Más grande en móviles muy pequeños */
+        max-width: 95%;
     }
 
-    /* Ajuste para el tamaño de fuente del título móvil en pantallas muy pequeñas */
-    .navbar-title-mobile {
-        font-size: 1.4rem; /* Un poco más pequeño para móviles muy pequeños */
+    .brand-text-mobile {
+        font-size: 1.1rem;
     }
+
+    .comment-form-wrapper {
+        padding: 20px;
+    }
+
+    .nav-item-custom {
+        padding: 10px 15px !important;
+        font-size: 0.9rem;
+    }
+
+    .nav-icon {
+        font-size: 1rem;
+    }
+}
+
+/* ===== UTILIDADES ADICIONALES ===== */
+.text-gradient {
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-glow {
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+}
+
+/* ===== ANIMACIONES DE ENTRADA PARA ELEMENTOS ===== */
+.fade-in-up,
+.fade-in-left,
+.fade-in-right {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-left {
+    transform: translateX(-30px);
+}
+
+.fade-in-right {
+    transform: translateX(30px);
+}
+
+.fade-in-up.animate-in,
+.fade-in-left.animate-in,
+.fade-in-right.animate-in {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
+
+/* ===== HOVER EFFECTS MEJORADOS ===== */
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
 }
