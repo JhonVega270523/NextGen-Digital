@@ -413,6 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function initProgressBar() {
         const progressBar = document.createElement('div');
         progressBar.className = 'loading-bar';
+        progressBar.style.maxWidth = '100%'; // Prevenir desbordamiento
         document.body.appendChild(progressBar);
         
         let progress = 0;
@@ -427,6 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 500);
             }
             progressBar.style.width = progress + '%';
+            progressBar.style.maxWidth = '100%'; // Prevenir desbordamiento
         }, 200);
     }
 
