@@ -23,24 +23,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Asegurarse de que la página siempre cargue en la parte superior
     window.scrollTo(0, 0);
 
-    // ===== SMOOTH SCROLLING MEJORADO =====
+    // ===== SMOOTH SCROLLING OPTIMIZADO =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                // Cerrar la navbar de Bootstrap en móviles inmediatamente
+                const navbarToggler = document.querySelector('.custom-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarToggler && navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+                
+                // Scroll suave optimizado (300ms)
+                const targetPosition = target.offsetTop - 80; // Ajuste para navbar fijo
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-            }
-
-            // Cerrar la navbar de Bootstrap en móviles después de hacer clic
-            const navbarToggler = document.querySelector('.custom-toggler');
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            if (navbarToggler && navbarCollapse.classList.contains('show')) {
-                navbarToggler.click();
             }
         });
     });
@@ -74,12 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         animateOnScroll();
     };
 
-    // Scroll to top functionality
+    // Scroll to top functionality instantáneo
     scrollToTopBtn.addEventListener("click", function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo(0, 0);
     });
 
     // ===== ANIMACIONES DE SCROLL =====
@@ -152,29 +151,47 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', updateActiveNavLink);
 
     // ===== FORM VALIDATION MEJORADA =====
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            // Mostrar loading state
-            submitBtn.textContent = 'Enviando...';
-            submitBtn.disabled = true;
-            
-            // Simular envío (en producción esto sería manejado por el backend)
-            setTimeout(() => {
-                submitBtn.textContent = '¡Enviado!';
-                submitBtn.classList.add('btn-success');
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('btn-success');
-                    form.reset();
-                }, 2000);
-            }, 1500);
-        });
+    // Manejar formularios de manera individual para asegurar funcionamiento
+    document.addEventListener('DOMContentLoaded', function() {
+        // Formulario de contacto
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                console.log('Formulario de contacto enviado');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+                    
+                    // Permitir envío normal
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        }
+
+        // Formulario de comentarios
+        const commentForm = document.querySelector('.comment-form-about');
+        if (commentForm) {
+            commentForm.addEventListener('submit', function(e) {
+                console.log('Formulario de comentarios enviado');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+                    
+                    // Permitir envío normal
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        }
     });
 
     // ===== LAZY LOADING PARA IMÁGENES =====
@@ -336,6 +353,356 @@ document.addEventListener('DOMContentLoaded', function() {
         animateOnScroll();
         updateActiveNavLink();
     }, 500);
+
+    // ===== EFECTOS VISUALES AVANZADOS =====
+    
+    // Función createParticles eliminada - efecto de burbujas desactivado
+
+    // Efecto de revelación de texto
+    function initTextReveal() {
+        const revealElements = document.querySelectorAll('.reveal-text');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // Efecto de typing mejorado
+    function initTypewriterEffect() {
+        const typewriterElements = document.querySelectorAll('.typewriter-effect');
+        
+        typewriterElements.forEach(element => {
+            const text = element.textContent;
+            element.textContent = '';
+            element.style.width = '0';
+            
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    element.style.width = ((i + 1) / text.length * 100) + '%';
+                    i++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, 100);
+        });
+    }
+
+    // Efecto de vibración en elementos
+    function addVibrateEffect() {
+        const vibrateElements = document.querySelectorAll('.vibrate');
+        
+        vibrateElements.forEach(element => {
+            element.addEventListener('click', () => {
+                element.classList.add('vibrate');
+                setTimeout(() => {
+                    element.classList.remove('vibrate');
+                }, 300);
+            });
+        });
+    }
+
+    // Efecto de carga progresiva
+    function initProgressBar() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'loading-bar';
+        document.body.appendChild(progressBar);
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 100) {
+                progress = 100;
+                clearInterval(interval);
+                setTimeout(() => {
+                    progressBar.style.opacity = '0';
+                    setTimeout(() => progressBar.remove(), 300);
+                }, 500);
+            }
+            progressBar.style.width = progress + '%';
+        }, 200);
+    }
+
+    // Efecto de parallax mejorado
+    function initParallaxEffect() {
+        const parallaxElements = document.querySelectorAll('.parallax');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    }
+
+    // Efecto de hover 3D mejorado
+    function init3DHoverEffect() {
+        const cards3D = document.querySelectorAll('.card-3d');
+        
+        cards3D.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+            });
+        });
+    }
+
+    // Efecto de ondas en botones
+    function initWaveEffect() {
+        const waveButtons = document.querySelectorAll('.btn-wave');
+        
+        waveButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const wave = document.createElement('span');
+                wave.style.position = 'absolute';
+                wave.style.left = x + 'px';
+                wave.style.top = y + 'px';
+                wave.style.width = '0';
+                wave.style.height = '0';
+                wave.style.borderRadius = '50%';
+                wave.style.background = 'rgba(255, 255, 255, 0.3)';
+                wave.style.transform = 'translate(-50%, -50%)';
+                wave.style.transition = 'width 0.6s, height 0.6s';
+                
+                button.appendChild(wave);
+                
+                setTimeout(() => {
+                    wave.style.width = '300px';
+                    wave.style.height = '300px';
+                }, 10);
+                
+                setTimeout(() => {
+                    wave.remove();
+                }, 600);
+            });
+        });
+    }
+
+    // Efecto de neón pulsante
+    function initNeonEffect() {
+        const neonElements = document.querySelectorAll('.neon-text, .neon-shadow');
+        
+        neonElements.forEach(element => {
+            setInterval(() => {
+                element.style.textShadow = `
+                    0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 15px currentColor,
+                    0 0 20px currentColor
+                `;
+                
+                setTimeout(() => {
+                    element.style.textShadow = `
+                        0 0 2px currentColor,
+                        0 0 5px currentColor,
+                        0 0 8px currentColor,
+                        0 0 12px currentColor
+                    `;
+                }, 1000);
+            }, 2000);
+        });
+    }
+
+    // Efecto de skeleton loading
+    function initSkeletonLoading() {
+        const skeletonElements = document.querySelectorAll('.skeleton');
+        
+        skeletonElements.forEach(element => {
+            setTimeout(() => {
+                element.classList.remove('skeleton');
+                element.style.animation = 'fadeIn 0.5s ease-in';
+            }, Math.random() * 2000 + 1000);
+        });
+    }
+
+
+    // Inicializar todos los efectos
+    function initAdvancedEffects() {
+        initTextReveal();
+        initTypewriterEffect();
+        addVibrateEffect();
+        initProgressBar();
+        initParallaxEffect();
+        init3DHoverEffect();
+        initWaveEffect();
+        initNeonEffect();
+        initSkeletonLoading();
+    }
+
+
+
+    // Ejecutar efectos avanzados después de la carga
+    window.addEventListener('load', () => {
+        setTimeout(initAdvancedEffects, 1000);
+    });
+    
+    // Eliminar llamada a initSmoothScroll() que causaba retraso
+    // initSmoothScroll() se ha integrado en la función de navegación principal
+
+    // ===== MODO LIGHT/DARK =====
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    // Cargar tema guardado
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeUI(savedTheme);
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeUI(newTheme);
+    });
+    
+    function updateThemeUI(theme) {
+        if (theme === 'dark') {
+            themeIcon.className = 'fas fa-sun nav-icon';
+            themeText.textContent = 'Claro';
+        } else {
+            themeIcon.className = 'fas fa-moon nav-icon';
+            themeText.textContent = 'Oscuro';
+        }
+    }
+
+    // ===== FORMULARIOS CON FORMSPREE =====
+    // Formulario de comentarios
+    const commentForm = document.querySelector('.comment-form-about');
+    if (commentForm) {
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Cambiar texto del botón
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            
+            // Enviar a Formspree usando fetch
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Mostrar mensaje de éxito
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'alert alert-success mt-3';
+                    successMessage.innerHTML = '<i class="fas fa-check-circle"></i> ¡Comentario enviado exitosamente!';
+                    this.appendChild(successMessage);
+                    
+                    // Resetear formulario
+                    this.reset();
+                    
+                    // Remover mensaje después de 3 segundos
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 3000);
+                } else {
+                    alert('Hubo un error al enviar el comentario. Por favor, intenta nuevamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al enviar el comentario. Por favor, intenta nuevamente.');
+            })
+            .finally(() => {
+                // Restaurar botón
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
+
+    // Formulario de contacto
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Cambiar texto del botón
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            
+            // Enviar a Formspree usando fetch
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Mostrar mensaje de éxito
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'alert alert-success mt-3';
+                    successMessage.innerHTML = '<i class="fas fa-check-circle"></i> ¡Mensaje enviado exitosamente!';
+                    this.appendChild(successMessage);
+                    
+                    // Resetear formulario
+                    this.reset();
+                    
+                    // Remover mensaje después de 3 segundos
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 3000);
+                } else {
+                    alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.');
+            })
+            .finally(() => {
+                // Restaurar botón
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 });
 
 // ===== UTILITY FUNCTIONS =====
@@ -358,7 +725,9 @@ window.addEventListener('error', function(e) {
     console.error('Error en la aplicación:', e.error);
 });
 
-// ===== SERVICE WORKER (OPCIONAL) =====
+// ===== SERVICE WORKER (DESHABILITADO) =====
+// Comentado para evitar errores 404
+/*
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
@@ -370,3 +739,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+*/
