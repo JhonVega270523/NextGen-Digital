@@ -2,15 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== PRELOADER =====
     const preloader = document.getElementById('preloader');
     
-    // Ocultar preloader después de que la página cargue
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }, 1000);
-    });
+    // Ocultar preloader inmediatamente para carga instantánea
+    if (preloader) {
+        preloader.style.display = 'none';
+    }
 
     // ---- LÓGICA CLAVE PARA FORZAR RECARGA Y RESETEO DEL FORMULARIO ----
     const urlParams = new URLSearchParams(window.location.search);

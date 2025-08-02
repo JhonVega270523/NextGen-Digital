@@ -25,41 +25,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* ===== PRELOADER ===== */
-.preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease-out;
-    max-width: 100%;
-    overflow: hidden;
-}
 
-.preloader.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(0, 123, 255, 0.3);
-    border-top: 3px solid #007bff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 /* ===== NAVBAR MEJORADO Y MODERNO ===== */
 #mainNavbar {
@@ -624,6 +590,19 @@ h2::after {
     transition: all 0.4s ease;
 }
 
+/* Estilos para imágenes del portafolio en las tarjetas de "Nuestros Trabajos" */
+#portfolio .service-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+}
+
+#portfolio .service-card:hover img {
+    transform: scale(1.05);
+}
+
 .portfolio-item:hover img {
     transform: scale(1.1);
 }
@@ -723,21 +702,7 @@ h2::after {
     overflow: hidden;
 }
 
-#contact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    animation: float 20s ease-in-out infinite;
-}
 
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
 
 #contact .animated-contact-title {
     animation: glow-text 2s ease-in-out infinite alternate;
@@ -1244,26 +1209,7 @@ footer::before {
 }
 
 /* Efecto de gradiente animado en el fondo */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease infinite;
-    z-index: -2;
-    opacity: 0.1;
-    max-width: 100%;
-}
 
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
 
 
 
@@ -1970,14 +1916,7 @@ body {
     background-color: var(--navbar-text) !important;
 }
 
-[data-theme="dark"] .preloader {
-    background-color: var(--bg-primary) !important;
-}
 
-[data-theme="dark"] .spinner {
-    border-color: rgba(0, 123, 255, 0.3) !important;
-    border-top-color: var(--btn-bg) !important;
-}
 
 /* Reglas adicionales para asegurar modo dark completo */
 [data-theme="dark"] .hero-section {
