@@ -307,13 +307,20 @@ html {
 }
 
 .hero-section h1 {
-    font-size: 4rem;
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: 700;
     margin-bottom: 20px;
     animation: fadeInUp 1s ease-out;
     line-height: 1.2;
     text-shadow: none !important;
     color: white !important;
+}
+
+/* Ajustar tamaño de todos los títulos de sección para que coincidan */
+h2.display-4,
+.animated-contact-title {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
 }
 
 .hero-section p.lead {
@@ -407,8 +414,8 @@ section:nth-child(odd) {
 }
 
 h2 {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: 700;
     position: relative;
     padding-bottom: 20px;
     margin-bottom: 60px;
@@ -443,7 +450,7 @@ h2::after {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    padding: 30px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -452,44 +459,41 @@ h2::after {
     min-height: 380px;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.6s ease;
+    display: none;
 }
 
 .service-card:hover::before {
-    left: 100%;
+    display: none;
 }
 
 .service-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.95);
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .service-card i {
     font-size: 4.5rem;
-    margin-bottom: 25px;
-    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    transition: none;
     position: relative;
     z-index: 1;
+    filter: none;
+    display: block;
+    text-align: center;
+    width: 100%;
 }
 
 .service-card:hover i {
-    transform: scale(1.1) rotate(5deg);
+    transform: none;
 }
 
 .service-card .pulsing-icon {
-    animation: pulse-glow 2s infinite ease-in-out;
+    animation: none;
 }
 
 @keyframes pulse-glow {
@@ -510,14 +514,35 @@ h2::after {
 .service-card .card-title {
     font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #2c3e50;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
+    padding: 5px 0;
 }
 
 .service-card .card-text {
     color: #6c757d;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    display: block;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 20px;
+    margin-top: 15px;
 }
 
 .service-card .card-body {
@@ -532,6 +557,9 @@ h2::after {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    position: relative;
 }
 
 .service-card .btn {
@@ -546,6 +574,10 @@ h2::after {
     margin-top: auto;
     align-self: center;
     width: fit-content;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .service-card .btn::before {
@@ -579,8 +611,8 @@ h2::after {
 }
 
 .portfolio-item:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .portfolio-item img {
@@ -590,21 +622,40 @@ h2::after {
     transition: all 0.4s ease;
 }
 
-/* Estilos para imágenes del portafolio en las tarjetas de "Nuestros Trabajos" */
+/* Estilos específicos para la sección de portafolio */
+#portfolio .service-card {
+    min-height: 420px;
+}
+
 #portfolio .service-card img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10px;
     transition: all 0.4s ease;
+    margin-bottom: 15px;
+    display: block;
+}
+
+#portfolio .service-card .card-title {
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+#portfolio .service-card .card-text {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: 0 30px;
+    margin-top: 15px;
 }
 
 #portfolio .service-card:hover img {
-    transform: scale(1.05);
+    transform: none;
 }
 
 .portfolio-item:hover img {
-    transform: scale(1.1);
+    transform: none;
 }
 
 .portfolio-item .card-body {
@@ -1205,7 +1256,7 @@ footer::before {
 }
 
 .hover-scale:hover {
-    transform: scale(1.05);
+    transform: none;
 }
 
 /* Efecto de gradiente animado en el fondo */
@@ -1232,7 +1283,7 @@ footer::before {
 }
 
 .card-3d:hover {
-    transform: rotateY(10deg) rotateX(5deg) translateZ(20px);
+    transform: none;
 }
 
 /* Efecto de escritura de máquina */
@@ -1437,7 +1488,7 @@ footer::before {
 }
 
 .hover-scale-rotate:hover {
-    transform: scale(1.1) rotate(5deg);
+    transform: none;
 }
 
 
@@ -1499,8 +1550,8 @@ footer::before {
 }
 
 .hover-elevate:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Efecto de texto con sombra de neón */

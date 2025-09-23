@@ -111,15 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===== EFECTOS HOVER MEJORADOS =====
-    document.querySelectorAll('.service-card, .portfolio-item').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+    // Efectos de hover deshabilitados según solicitud del usuario
 
     // ===== NAVIGATION ACTIVE STATE =====
     function updateActiveNavLink() {
@@ -442,29 +434,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Efecto de hover 3D mejorado
+    // Efecto de hover 3D mejorado - DESHABILITADO
     function init3DHoverEffect() {
-        const cards3D = document.querySelectorAll('.card-3d');
-        
-        cards3D.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-            });
-        });
+        // Efectos 3D deshabilitados según solicitud del usuario
     }
 
     // Efecto de ondas en botones
@@ -564,33 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // initSmoothScroll() se ha integrado en la función de navegación principal
 
     // ===== MODO LIGHT/DARK =====
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-    
-    // Cargar tema guardado
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeUI(savedTheme);
-    
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeUI(newTheme);
-    });
-    
-    function updateThemeUI(theme) {
-        if (theme === 'dark') {
-            themeIcon.className = 'fas fa-sun nav-icon';
-            themeText.textContent = 'Claro';
-        } else {
-            themeIcon.className = 'fas fa-moon nav-icon';
-            themeText.textContent = 'Oscuro';
-        }
-    }
+    // Funcionalidad de cambio de tema eliminada según solicitud del usuario
 
     // ===== FORMULARIOS CON FORMSPREE =====
     // Formulario de comentarios
