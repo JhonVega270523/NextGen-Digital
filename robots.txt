@@ -1,0 +1,27 @@
+# robots.txt para NextGen Digital
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Deshabilitar acceso a archivos de configuración y scripts
+Disallow: /js/
+Disallow: /css/
+Disallow: /utils/
+
+# Permitir acceso a imágenes y recursos estáticos
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.ico$
+
+# Sitemap
+Sitemap: https://nextgendigital.com/sitemap.xml
+
+# Crawl-delay (opcional, para evitar sobrecarga)
+Crawl-delay: 1

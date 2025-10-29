@@ -316,11 +316,24 @@ html {
     color: white !important;
 }
 
-/* Ajustar tamaño de todos los títulos de sección para que coincidan */
-h2.display-4,
-.animated-contact-title {
-    font-size: 2.5rem !important;
+/* Ajustar tamaño de todos los títulos principales para que coincidan con el tamaño del CTA de referencia */
+h3.fw-bold,
+h3.text-center.fw-bold,
+.animated-contact-title,
+.hero-section h3 {
+    font-size: 1.75rem !important;
     font-weight: 700 !important;
+    line-height: 1.2;
+}
+
+/* Títulos de sección principales */
+h3.text-center.mb-5.fw-bold {
+    font-size: 1.75rem !important;
+}
+
+/* Asegurar que los h3 del hero también tengan el mismo tamaño */
+.hero-section h3.fw-bold {
+    font-size: 1.75rem !important;
 }
 
 .hero-section p.lead {
@@ -423,23 +436,7 @@ h2 {
     text-align: center;
 }
 
-h2::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 5px;
-    background: linear-gradient(45deg, #007bff, #00d4ff);
-    border-radius: 3px;
-    animation: line-expand 2s ease-in-out infinite alternate;
-}
-
-@keyframes line-expand {
-    0% { width: 50px; opacity: 0.7; }
-    100% { width: 150px; opacity: 1; }
-}
+/* Líneas debajo de títulos removidas según solicitud del usuario */
 
 /* ===== SERVICIOS CON GLASSMORPHISM ===== */
 .service-card {
@@ -530,7 +527,7 @@ h2::after {
     color: #6c757d;
     line-height: 1.6;
     margin-bottom: 15px;
-    text-align: center;
+    text-align: justify;
     width: 100%;
     height: auto;
     position: relative;
@@ -648,6 +645,7 @@ h2::after {
     height: auto;
     padding: 0 30px;
     margin-top: 15px;
+    text-align: justify;
 }
 
 #portfolio .service-card:hover img {
@@ -857,19 +855,6 @@ footer::before {
     background: linear-gradient(45deg, #007bff, #00d4ff);
 }
 
-.social-icons a {
-    color: #ffffff;
-    font-size: 1.8rem;
-    margin: 0 15px;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.social-icons a:hover {
-    color: #007bff;
-    transform: translateY(-3px) scale(1.2);
-    text-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
-}
 
 /* ===== BOTONES FLOTANTES CON POSICIONES INTERCAMBIADAS ===== */
 #scrollToTopBtn {
@@ -1067,16 +1052,19 @@ footer::before {
         width: calc(100% - 2rem); /* Prevenir desbordamiento */
     }
     
-    .hero-section h1 {
-        font-size: 2.8rem;
+    .hero-section h3,
+    .hero-section h3.fw-bold {
+        font-size: 1.5rem !important;
     }
 
     .hero-section p.lead {
         font-size: 1.3rem;
     }
 
-    h2 {
-        font-size: 2.5rem;
+    h3.fw-bold,
+    h3.text-center.fw-bold,
+    h3.text-center.mb-5.fw-bold {
+        font-size: 1.5rem !important;
     }
 
     .service-card {
@@ -1140,16 +1128,19 @@ footer::before {
         width: calc(100% - 1rem); /* Prevenir desbordamiento */
     }
     
-    .hero-section h1 {
-        font-size: 2.2rem;
+    .hero-section h3,
+    .hero-section h3.fw-bold {
+        font-size: 1.3rem !important;
     }
 
     .hero-section p.lead {
         font-size: 1.1rem;
     }
 
-    h2 {
-        font-size: 2rem;
+    h3.fw-bold,
+    h3.text-center.fw-bold,
+    h3.text-center.mb-5.fw-bold {
+        font-size: 1.3rem !important;
     }
 
     section {
@@ -1363,21 +1354,7 @@ footer::before {
     left: 100%;
 }
 
-/* Efecto de texto con gradiente animado */
-.animated-gradient-text {
-    background: linear-gradient(45deg, #007bff, #00d4ff, #667eea, #764ba2);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient-text 3s ease infinite;
-}
-
-@keyframes gradient-text {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+/* Efecto de texto con gradiente animado removido según solicitud del usuario */
 
 /* Efecto de sombra dinámica */
 .dynamic-shadow {
@@ -1894,13 +1871,6 @@ body {
     background-color: var(--bg-secondary) !important;
 }
 
-[data-theme="dark"] .social-icons a {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .social-icons a:hover {
-    color: var(--link-color) !important;
-}
 
 /* El botón de WhatsApp NO debe verse afectado por el modo oscuro */
 [data-theme="dark"] .whatsapp-float {
@@ -2174,4 +2144,326 @@ body {
 /* Transiciones suaves para el cambio de tema */
 * {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== MODAL DEL LOGO ===== */
+.logo-modal-content {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    color: white;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.logo-modal-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo-modal-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 123, 255, 0.6));
+    animation: logo-modal-pulse 2s ease-in-out infinite;
+    z-index: 2;
+    position: relative;
+}
+
+.logo-modal-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(0, 123, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: logo-modal-glow-pulse 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes logo-modal-pulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(0, 123, 255, 0.6));
+    }
+    50% { 
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(0, 123, 255, 0.8));
+    }
+}
+
+@keyframes logo-modal-glow-pulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+.logo-modal-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.logo-modal-title .brand-primary {
+    background: linear-gradient(45deg, #007bff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo-modal-title .brand-secondary {
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.logo-modal-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    text-align: center;
+    font-weight: 300;
+}
+
+/* Botón de cerrar personalizado */
+.logo-modal-content .btn-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.logo-modal-content .btn-close:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Animación de entrada del modal */
+.modal.fade .modal-dialog {
+    transform: scale(0.8) translateY(-50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+/* Responsive para el modal */
+@media (max-width: 576px) {
+    .logo-modal-content {
+        margin: 20px;
+        max-width: calc(100% - 40px);
+    }
+    
+    .logo-modal-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .logo-modal-glow {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .logo-modal-title {
+        font-size: 2rem;
+    }
+    
+    .logo-modal-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* ===== LAZY LOADING ESTILOS MEJORADOS ===== */
+/* Estilos para imágenes con lazy loading */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading-image 1.5s infinite;
+}
+
+img[loading="lazy"].image-loaded {
+    opacity: 1;
+    background: none;
+    animation: none;
+}
+
+img.image-error {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+img.image-error::after {
+    content: '⚠️';
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    padding: 20px;
+}
+
+/* Optimización: evitar layout shift */
+img[width][height] {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Skeleton loader para imágenes que están cargando */
+@keyframes skeleton-loading-image {
+    0% { 
+        background-position: 200% 0; 
+    }
+    100% { 
+        background-position: -200% 0; 
+    }
+}
+
+/* Asegurar que las imágenes con lazy loading no causen layout shift */
+img[loading="lazy"] {
+    min-height: 200px;
+    object-fit: cover;
+}
+
+/* Portfolio images específicas */
+#portfolio img[loading="lazy"] {
+    min-height: 200px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+/* About image específica */
+.about-image[loading="lazy"] {
+    min-height: 300px;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+}
+
+/* Modo oscuro para lazy loading */
+[data-theme="dark"] img[loading="lazy"] {
+    background: linear-gradient(90deg, #2d2d2d 25%, #1a1a1a 50%, #2d2d2d 75%);
+    background-size: 200% 100%;
+}
+
+[data-theme="dark"] #portfolio img[loading="lazy"] {
+    background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .about-image[loading="lazy"] {
+    background-color: #2d2d2d;
+}
+
+/* ===== ESTILOS PARA CTAs ESTRATÉGICOS ===== */
+.cta-portfolio-wrapper {
+    transition: all 0.3s ease;
+}
+
+.cta-portfolio-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.2);
+    border-color: rgba(0, 123, 255, 0.4) !important;
+}
+
+/* CTAs con mejor hover effect */
+.text-center .btn-lg {
+    min-width: 220px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-center .btn-lg:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* CTA de urgencia antes de contacto */
+section[style*="667eea"] {
+    position: relative;
+    overflow: hidden;
+}
+
+section[style*="667eea"]::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: pulse-glow-cta 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse-glow-cta {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* Footer CTA */
+footer .btn-lg {
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+footer .btn-lg:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive para CTAs */
+@media (max-width: 768px) {
+    .text-center .btn-lg {
+        min-width: 100%;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .cta-portfolio-wrapper {
+        padding: 20px !important;
+        margin: 20px 10px;
+    }
+    
+    section[style*="667eea"] {
+        padding: 60px 20px !important;
+    }
+    
+    section[style*="667eea"] h2 {
+        font-size: 1.8rem !important;
+    }
+    
+    section[style*="667eea"] .lead {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .text-center .btn-lg {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+    
+    section[style*="667eea"] h2 {
+        font-size: 1.5rem !important;
+    }
 }

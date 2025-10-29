@@ -181,20 +181,72 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===== LAZY LOADING PARA IMÁGENES =====
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
+    // ===== LAZY LOADING PARA IMÁGENES MEJORADO =====
+    // Sistema híbrido: usa loading="lazy" nativo + Intersection Observer como fallback
+    
+    // Detectar soporte para loading="lazy"
+    const supportsLazyLoading = 'loading' in HTMLImageElement.prototype;
+    
+    // Para imágenes con data-src (sistema antiguo)
+    const imagesWithDataSrc = document.querySelectorAll('img[data-src]');
+    if (imagesWithDataSrc.length > 0) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px' // Cargar 50px antes de que entre en vista
         });
-    });
 
-    images.forEach(img => imageObserver.observe(img));
+        imagesWithDataSrc.forEach(img => imageObserver.observe(img));
+    }
+    
+    // Para navegadores que no soportan loading="lazy" nativo
+    if (!supportsLazyLoading) {
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    // Solo cargar si no tiene src o está vacío
+                    if (!img.src || img.src === '') {
+                        img.src = img.dataset.src || img.getAttribute('data-src');
+                    }
+                    lazyImageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+
+        lazyImages.forEach(img => lazyImageObserver.observe(img));
+    }
+    
+    // Agregar manejo de errores para todas las imágenes
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            // Si falla la carga, intentar con una imagen placeholder o loguear el error
+            console.warn('Error al cargar imagen:', this.src);
+            // Opcional: agregar clase de error
+            this.classList.add('image-error');
+        });
+        
+        // Agregar efecto de carga suave
+        if (img.complete && img.naturalHeight !== 0) {
+            // Imagen ya está cargada
+            img.classList.add('image-loaded');
+        } else {
+            img.addEventListener('load', function() {
+                this.classList.add('image-loaded');
+            }, { once: true });
+        }
+    });
 
     // ===== PARALLAX EFFECT =====
     window.addEventListener('scroll', () => {
@@ -243,33 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== SCROLL PROGRESS BAR =====
-    function updateScrollProgress() {
-        const scrollTop = window.pageYOffset;
-        const docHeight = document.body.offsetHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        
-        // Crear barra de progreso si no existe
-        let progressBar = document.querySelector('.scroll-progress');
-        if (!progressBar) {
-            progressBar = document.createElement('div');
-            progressBar.className = 'scroll-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 3px;
-                background: linear-gradient(45deg, #007bff, #00d4ff);
-                z-index: 9999;
-                transition: width 0.3s ease;
-            `;
-            document.body.appendChild(progressBar);
-        }
-        
-        progressBar.style.width = scrollPercent + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
+    // Barra de progreso removida según solicitud del usuario
 
     // ===== NAVBAR TOGGLER ANIMATION =====
     const customToggler = document.querySelector('.custom-toggler');
@@ -297,6 +323,60 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (logoImg) logoImg.style.filter = 'drop-shadow(0 0 10px rgba(0, 123, 255, 0.3))';
             if (logoGlow) logoGlow.style.opacity = '0.5';
+        });
+    }
+
+    // ===== LOGO MODAL FUNCTIONALITY =====
+    const logoModal = document.getElementById('logoModal');
+    const logoBrand = document.querySelector('.navbar-brand');
+    
+    if (logoModal && logoBrand) {
+        // Prevenir el comportamiento por defecto del enlace
+        logoBrand.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+        
+        // Agregar efecto de click al logo
+        logoBrand.addEventListener('click', function() {
+            // Agregar clase de animación al logo
+            const logoImg = this.querySelector('.logo-img');
+            if (logoImg) {
+                logoImg.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    logoImg.style.transform = 'scale(1)';
+                }, 150);
+            }
+        });
+        
+        // Efectos adicionales cuando se abre el modal
+        logoModal.addEventListener('show.bs.modal', function() {
+            // Agregar efecto de desvanecimiento al fondo
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Restaurar cuando se cierra el modal
+        logoModal.addEventListener('hidden.bs.modal', function() {
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && logoModal.classList.contains('show')) {
+                const modalInstance = bootstrap.Modal.getInstance(logoModal);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+            }
+        });
+        
+        // Cerrar modal al hacer click fuera del contenido
+        logoModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                const modalInstance = bootstrap.Modal.getInstance(logoModal);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+            }
         });
     }
 
