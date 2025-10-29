@@ -1,3 +1,27 @@
+// ===== FORZAR SCROLL AL INICIO AL CARGAR/RECARGAR LA PÁGINA =====
+// Prevenir que el navegador restaure la posición de scroll
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Forzar scroll al inicio inmediatamente
+window.scrollTo(0, 0);
+
+// Asegurar scroll al inicio cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', function() {
+    window.scrollTo(0, 0);
+});
+
+// Asegurar scroll al inicio cuando la página carga completamente
+window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+});
+
+// Forzar scroll al inicio al recargar la página
+window.addEventListener('beforeunload', function() {
+    window.scrollTo(0, 0);
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     // ===== PRELOADER =====
     const preloader = document.getElementById('preloader');
